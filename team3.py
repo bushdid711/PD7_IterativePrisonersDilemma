@@ -17,18 +17,17 @@ def move(my_history, their_history, my_score, their_score):
     Make my move.
     Returns 'c' or 'b'. 
     '''
-
-    # my_history: a string with one letter (c or b) per round that has been played with this opponent.
-    # their_history: a string of the same length as history, possibly empty. 
-    # The first round between these two players is my_history[0] and their_history[0].
-    # The most recent round is my_history[-1] and their_history[-1].
-    
-    # Analyze my_history and their_history and/or my_score and their_score.
-    # Decide whether to return 'c' or 'b'.
-    
-    return 'c'
-
-    
+    if len(my_history)<5:
+        return 'b'
+    if len(their_history)>0:
+        if their_history[-1]==their_history[-2]==their_history[-3]==their_history[-4]==their_history[-5]=='b':
+            return 'c'
+        if their_history[-1]==their_history[-2]==their_history[-3]==their_history[-4]==their_history[-5]=='c':
+            return 'b'
+        if their_history[-1] == 'b':
+            return 'b' 
+        else: 
+            return 'c'
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
     from this module. Prints error if return value != result.
@@ -55,8 +54,8 @@ if __name__ == '__main__':
               result='b'):
          print 'Test passed'
      # Test 2: Continue betraying if they collude despite being betrayed.
-    test_move(my_history='bbb',
-              their_history='ccc', 
+    test_move(my_history='bbbbb',
+              their_history='bbbcb', 
               # Note the scores are for testing move().
               # The history and scores don't need to match unless
               # that is relevant to the test of move(). Here,
